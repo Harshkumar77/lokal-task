@@ -7,7 +7,7 @@ export default function List({ articles }) {
         <Card
           urlToImage={article.urlToImage}
           title={article.title}
-          description={article.description}
+          article={article}
         />
       ))}
     </div>

@@ -2,18 +2,46 @@ import axios from "axios"
 
 const request = axios.create({
   headers: {
-    // "X-Api-Key": "cdec4742d0034498a03e579e7f108da1",
-    "X-Api-Key": "4896149b8e5e4a31ac156d4cf4959835",
+    "X-Api-Key": "cdec4742d0034498a03e579e7f108da1",
   },
 })
 
-const headlines = () =>
-  request
-    .get("//newsapi.org/v2/top-headlines?country=in")
-    .then((_) =>
-      _.data.articles
-        .filter((_) => _.urlToImage && _.title && _.description)
-        .slice(0, 10)
-    )
+const headlineRequest = request.get("//newsapi.org/v2/top-headlines", {
+  params: {
+    country: "in",
+  },
+})
 
-export { headlines }
+const filterResponse = (_) =>
+  _.data.articles
+    .filter(
+      (_) =>
+        _.urlToImage &&
+        _.title &&
+        _.description &&
+        _.author &&
+        _.content &&
+        _.publishedAt
+    )
+    .slice(0, 10)
+
+const search = ({ queryKey: [_, q] }) =>
+  request
+    .get("//newsapi.org/v2/everything", {
+      params: {
+        q,
+      },
+    })
+    .then(filterResponse)
+
+const headlines = ({ queryKey }) =>
+  request
+    .get("//newsapi.org/v2/top-headlines", {
+      params: {
+        country: "in",
+        category: queryKey[1],
+      },
+    })
+    .then(filterResponse)
+
+export { headlines, search }
