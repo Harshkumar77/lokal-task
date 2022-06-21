@@ -6,12 +6,6 @@ const request = axios.create({
   },
 })
 
-const headlineRequest = request.get("//newsapi.org/v2/top-headlines", {
-  params: {
-    country: "in",
-  },
-})
-
 const filterResponse = (_) =>
   _.data.articles
     .filter(
