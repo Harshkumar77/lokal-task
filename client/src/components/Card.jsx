@@ -8,12 +8,15 @@ export default function Card({ article, urlToImage, title, description }) {
       }}
       state={{ article: article }}
     >
-      <div className="px-3 m-3 rounded-xl border-2 border-gray-700 max-w-[400px] text-center bg-blue-50">
+      <div className="p-7 m-4 rounded-xl max-w-[600px] text-center bg-filler shadow-lg hover:scale-[1.05]">
         <img
           src={urlToImage}
-          className="py-4 h-64 aspect-square object-cover mx-auto"
+          className="py-4 h-96 aspect-square object-cover mx-auto "
+          loading="lazy"
         />
-        <h1 className="text-xl font-semibold">{title}</h1>
+        <h1 className="shadow-md shadow-secondary text-lg font-semibold text-primary bg-white">
+          {title}
+        </h1>
       </div>
     </Link>
   )

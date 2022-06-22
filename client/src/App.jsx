@@ -16,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/article" element={<Article />} />
-          <Route path="/search" element={<SearchResult />} />
+          <Route path="/search/:searchQuery" element={<SearchResult />} />
           <Route path="*" element={<>Not found</>} />
         </Routes>
       </BrowserRouter>
