@@ -1,6 +1,10 @@
 import axios from "axios"
 import "dotenv/config"
 import express from "express"
+import { dirname } from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const app = express()
 app.use(express.static("./dist"))
@@ -29,7 +33,7 @@ const filterResponse = (_) =>
 app.get("/api/search", async (req, res) => {
   res.json(
     await request
-      .get("//newsapi.org/v2/everything", {
+      .get("https://newsapi.org/v2/everything", {
         params: {
           q: req.query.q,
         },
@@ -41,7 +45,7 @@ app.get("/api/search", async (req, res) => {
 app.get("/api/headlines", async (req, res) => {
   res.json(
     await request
-      .get("//newsapi.org/v2/top-headlines", {
+      .get("https://newsapi.org/v2/top-headlines", {
         params: {
           country: "in",
           category: req.query.category,
@@ -52,7 +56,7 @@ app.get("/api/headlines", async (req, res) => {
 })
 
 app.get("*", (req, res) => {
-  res.sendFile("./dist/index.html")
+  res.sendFile(__dirname + "/dist/index.html")
 })
 
 app.listen(process.env.PORT, () => console.log("Server started"))
